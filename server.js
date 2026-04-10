@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+require('dotenv').config();
 const app = express();
 
 app.use(cors());
@@ -25,14 +25,13 @@ process.on('unhandledRejection', err => {
 // const mysql = require('mysql2');
 
 const db = mysql.createConnection({
-  host: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-  port: 4000,
-  user: 'GHJusbywUx3wgJs.root',
-  password: '8ZB4alGyFT9dyLGy', // <-- put your real password  
-//   sZU5Pc1XAsPQnswT => password
-  database: 'test',
+  host: process.env.HOST_DB,
+  port:process.env.PORT_DB ,
+  user:process.env.USER_DB ,
+  password: process.env.PASSWORD_DB , 
+  database:process.env.DATABASE_DB,
   ssl: {
-    rejectUnauthorized: true
+    rejectUnauthorized: false
   }
 });
 
@@ -118,6 +117,6 @@ app.get('/listSchools', (req, res) => {
 });
 
 // 🚀 Start server
-app.listen(7000, () => {
+app.listen(process.env.PORT || 7000, () => {
     console.log('🚀 Server running on http://127.0.0.1:7000');
 });
