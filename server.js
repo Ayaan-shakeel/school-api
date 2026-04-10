@@ -11,17 +11,17 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send("Server is working ✅");
+    res.send("Server is working ");
 });
 process.on('uncaughtException', err => {
-    console.error('💥 CRASH ERROR:', err);
+    console.error(' CRASH ERROR:', err);
 });
 
 process.on('unhandledRejection', err => {
-    console.error('💥 PROMISE ERROR:', err);
+    console.error(' PROMISE ERROR:', err);
 });
 
-// ✅ MySQL Connection
+//  MySQL Connection
 // const mysql = require('mysql2');
 
 const db = mysql.createConnection({
@@ -37,12 +37,12 @@ const db = mysql.createConnection({
 
 db.connect(err => {
   if (err) {
-    console.error('❌ DB Error:', err);
+    console.error(' DB Error:', err);
     return;
   }
-  console.log('✅ DB Connected Successfully!');
+  console.log(' DB Connected Successfully!');
 });
-// 📍 Distance function (Haversine formula)
+//  Distance function (Haversine formula)
 function getDistance(lat1, lon1, lat2, lon2) {
     const R = 6371; // km
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -60,12 +60,12 @@ function getDistance(lat1, lon1, lat2, lon2) {
     return R * c;
 }
 
-// 🟢 1. ADD SCHOOL API
+//  1. ADD SCHOOL API
 app.post('/addSchool', (req, res) => {
     console.log("Body : ",req.body);
     const { name, address, latitude, longitude } = req.body;
 
-    // ✅ Validation
+    //  Validation
     if (!name || !address || latitude == null || longitude == null) {
         return res.status(400).json({ message: 'All fields are required' });
     }
@@ -86,7 +86,7 @@ app.post('/addSchool', (req, res) => {
     });
 });
 
-// 🔵 2. LIST SCHOOLS API (sorted by distance)
+//  2. LIST SCHOOLS API (sorted by distance)
 app.get('/listSchools', (req, res) => {
     const userLat = parseFloat(req.query.latitude);
     const userLon = parseFloat(req.query.longitude);
@@ -116,7 +116,7 @@ app.get('/listSchools', (req, res) => {
     });
 });
 
-// 🚀 Start server
+//  Start server
 app.listen(process.env.PORT || 7000, () => {
-    console.log('🚀 Server running on http://127.0.0.1:7000');
+    console.log(' Server running on http://127.0.0.1:7000');
 });
