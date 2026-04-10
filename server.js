@@ -22,21 +22,27 @@ process.on('unhandledRejection', err => {
 });
 
 // ✅ MySQL Connection
+// const mysql = require('mysql2');
+
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'schooluser',
-    password: 'school123',
-    database: 'school_management'
+  host: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
+  port: 4000,
+  user: 'GHJusbywUx3wgJs.root',
+  password: '8ZB4alGyFT9dyLGy', // <-- put your real password  
+//   sZU5Pc1XAsPQnswT => password
+  database: 'test',
+  ssl: {
+    rejectUnauthorized: true
+  }
 });
 
 db.connect(err => {
-    if (err) {
-        console.error('❌ DB Error:', err);
-        return;
-    }
-    console.log('✅ DB Connected!');
+  if (err) {
+    console.error('❌ DB Error:', err);
+    return;
+  }
+  console.log('✅ DB Connected Successfully!');
 });
-
 // 📍 Distance function (Haversine formula)
 function getDistance(lat1, lon1, lat2, lon2) {
     const R = 6371; // km
